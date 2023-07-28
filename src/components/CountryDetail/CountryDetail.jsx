@@ -1,5 +1,6 @@
-import "./CountryDetail.css";
 import closeIcon from "../../assets/close.svg";
+import "./CountryDetail.css";
+
 const CountryDetail = ({ card, handleClose }) => {
   const {
     code,
@@ -8,10 +9,10 @@ const CountryDetail = ({ card, handleClose }) => {
     capital,
     languages,
     currencies,
-    emoji,
     image,
+    subdivisions,
+    population,
   } = card;
-  console.log(card);
   return (
     <div className="detail">
       <img
@@ -20,41 +21,53 @@ const CountryDetail = ({ card, handleClose }) => {
         className="detail__close"
         onClick={handleClose}
       />
-      <img src={image} alt="" className="detail__image" />
+      <img src={image} alt={`${name} image`} className="detail__image" />
 
       <div className="detail__grid">
         <img
-          src={`https://flagsapi.com/${code}/flat/64.png`}
-          alt=""
+          src={`/src/assets/flags/${code.toLowerCase()}.webp`}
+          alt={`${name} flag`}
           className="detail__flag"
         />
         <span className="detail__country">{name}</span>
         <span className="detail__continent">{continent.name}</span>
       </div>
+
       <p className="detail__info">
-        Capital: <span className="detail__data">{capital}</span>
+        Capital:{" "}
+        <span className="detail__data">{capital || "Not Available"}</span>
       </p>
+
       <p className="detail__info">
         Language:{" "}
         <span className="detail__data">
-          {languages.map((language) => language.name).join(", ")}
+          {languages.map((language) => language.name).join(", ") ||
+            "Not Available"}
         </span>
       </p>
       <p className="detail__info">
-        Population: <span className="detail__data">{capital}</span>
+        Population: <span className="detail__data">{population}</span>
       </p>
       <p className="detail__info">
-        Currency: <span className="detail__data">{currencies.join(", ")}</span>
+        Currency:{" "}
+        <span className="detail__data">
+          {currencies.join(", ") || "Not Available"}
+        </span>
       </p>
-      <p className="detail__info">
-        Region <span>{emoji}</span>
-      </p>
-      <div>
-        <span>a</span>
-        <span>b</span>
-        <span>c</span>
-        <span>d</span>
-      </div>
+
+      {subdivisions?.length > 0 && (
+        <>
+          <p className="detail__info">Region</p>
+
+          <ul className="detail__list">
+            {subdivisions.map((item) => (
+              <li key={item.code} className="detail__list-item">
+                {item.name}
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
     </div>
   );
 };

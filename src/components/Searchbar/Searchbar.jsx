@@ -1,72 +1,56 @@
-import "./Searchbar.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import searchIcon from "../../assets/search.svg";
 import closeIcon from "../../assets/close.svg";
-
-// const SEARCH_COUNTRIES = gql`
-//   query SearchCountries($searchText: String!) {
-//     countries(filter: { code: { eq: $searchText } }) {
-//       code
-//       name
-//       capital
-//       continent {
-//         name
-//       }
-//       currencies
-//       emoji
-//       languages {
-//         name
-//       }
-//     }
-//   }
-// `;
+import "./Searchbar.css";
 
 const Searchbar = () => {
   const [searchText, setSearchText] = useState("");
-  // const [searchCountries, { loading, error, data }] =
-  //   useLazyQuery(SEARCH_COUNTRIES);
-  // const handleSearch = () => {
-  //   searchCountries({ variables: { searchText } });
-  // };
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+  useEffect(() => {
+    setSearchText("");
+  }, [location]);
+  const searchCountries = (e) => {
+    e.preventDefault();
+    if (searchText.trim() === "") return;
+    navigate(`search-results?search=${encodeURIComponent(searchText)}`);
+  };
 
   return (
-    <>
-      <div className={`searchbar ${isOpen && "searchbar_expanded"}`}>
-        <h2 className="searchbar__title">Pais</h2>
-        <button className="searchbar__button">
-          <img src={searchIcon} alt="" />
+    <header>
+      <form className={`searchbar ${isOpen && "searchbar_expanded"}`}>
+        <label htmlFor="searchInput" className="searchbar__title">
+          Pais
+        </label>
+        <button className="searchbar__button" onClick={searchCountries}>
+          <img src={searchIcon} alt="search icon" />
           <span className="searchbar__button-text">Buscar</span>
         </button>
         <input
+          id="searchInput"
           className="searchbar__input"
           type="text"
           placeholder="Escribe el país que deseas ver"
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
         />
-        {/* {loading && <p>Cargando...</p>}
-      {error && <p>Error al realizar la búsqueda</p>}
-      {data &&
-        data.countries.map((country) => (
-          <div key={country.code}>
-            <span>{country.name}</span>
-          </div>
-        ))} */}
         <button
           className="searchbar__button searchbar__close"
           onClick={() => setIsOpen(false)}
+          type="button"
         >
-          <img src={closeIcon} alt="" />
+          <img src={closeIcon} alt="close searchbar icon" />
         </button>
-      </div>
+      </form>
       <button
         className="searchbar__button_left searchbar__button"
         onClick={() => setIsOpen(true)}
       >
-        <img src={searchIcon} alt="" />
+        <img src={searchIcon} alt="open searchbar icon" />
       </button>
-    </>
+    </header>
   );
 };
 

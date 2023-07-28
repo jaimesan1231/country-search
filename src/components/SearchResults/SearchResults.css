@@ -1,0 +1,8 @@
+.search-results {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.search-results__title {
+  color: #3fb5ff;
+}

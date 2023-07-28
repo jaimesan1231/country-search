@@ -1,39 +1,57 @@
 import { useEffect, useState } from "react";
 import "./CountryCard.css";
-import CountryDetail from "../CountryDetail/CountryDetail";
 
-const CountryCard = ({ card, handleOpenDetail }) => {
-  console.log(card);
-  const { name, continent, code } = card;
-  const [urlImage, setUrlImage] = useState("");
-
+const CountryCard = ({ country, handleCardClick }) => {
+  const [card, setCard] = useState(null);
   useEffect(() => {
-    const getImage = async () => {
-      const res = await fetch(
-        `https://pixabay.com/api/?key=38470145-32c13a1632e8f07dc52b5234f&q=${name}&image_type=photo&per_page=3`
-      );
-      const data = await res.json();
-      console.log(data);
-      setUrlImage(data.hits[0].webformatURL);
+    const getCardData = async () => {
+      try {
+        const resImage = await fetch(
+          `https://pixabay.com/api/?key=${import.meta.env.VITE_API_KEY}&q=${
+            country.name
+          }&image_type=photo&per_page=3`
+        );
+        const dataImage = await resImage.json();
+        const image =
+          dataImage.hits[0]?.webformatURL || "/src/assets/not-image.webp";
+        const resPoppulation = await fetch(
+          `https://restcountries.com/v3.1/alpha?codes=${country.code}`
+        );
+        const dataPopulation = await resPoppulation.json();
+        const population = dataPopulation[0].population;
+        setCard({
+          ...country,
+          image,
+          population,
+        });
+      } catch (error) {
+        console.log("Error", error);
+      }
     };
-    getImage();
-  }, [card]);
+    getCardData();
+    return () => {
+      setCard(null);
+    };
+  }, [country]);
   return (
-    <>
-      <div className="card" onClick={() => handleOpenDetail(card, urlImage)}>
-        <img src={urlImage} alt="" className="card__image" />
-
+    card && (
+      <div className="card" onClick={() => handleCardClick(card)}>
+        <img
+          src={card.image}
+          alt={`${card.name} image`}
+          className="card__image"
+        />
         <div className="card__info">
           <img
-            src={`https://flagsapi.com/${code}/flat/64.png`}
-            alt=""
+            src={`/src/assets/flags/${card.code.toLowerCase()}.webp`}
+            alt={`${card.name} flag`}
             className="card__flag"
           />
-          <span className="card__country">{name}</span>
-          <span className="card__continent">{continent.name}</span>
+          <span className="card__country">{card.name}</span>
+          <span className="card__continent">{card.continent.name}</span>
         </div>
       </div>
-    </>
+    )
   );
 };
 

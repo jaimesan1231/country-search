@@ -1,0 +1,36 @@
+.continent-card {
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  border-radius: 50px;
+  box-shadow: 0px 0px 15px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  cursor: pointer;
+  display: grid;
+  grid-template-rows: 65% 35%;
+}
+
+.continent-card__image {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+.continent-card__info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+.continent-card__name {
+  color: #3fb5ff;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+.continent-card__code {
+  color: #7a7a7a;
+  font-weight: 500;
+
+  font-size: 17px;
+}

@@ -18,13 +18,15 @@
 }
 .sidebar__logo {
   background-color: #dbdbdb;
-  padding: 20px;
+  padding: 15px 20px;
   border-radius: 8px;
   color: black;
   font-size: 30px;
 }
 .sidebar__list {
   list-style: none;
+  display: flex;
+  flex-direction: column;
 }
 .sidebar__item {
   color: #fff;
@@ -32,6 +34,7 @@
   font-weight: 700;
   text-align: left;
   padding: 16px 36px;
+  text-decoration: none;
 }
 .sidebar__close {
   position: absolute;
@@ -45,6 +48,11 @@
 }
 .sidebar__close img {
   width: 25px;
+}
+.active {
+  color: black;
+  background-color: #fff;
+  border-radius: 8px;
 }
 @media screen and (min-width: 768px) {
   .sidebar {

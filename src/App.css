@@ -3,12 +3,16 @@
   text-align: center;
   height: 100vh;
 }
-
 .main {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 80px auto;
   flex-direction: column;
   gap: 20px;
-  padding: 20px 10px;
+  justify-content: space-around;
+  height: 100vh;
+  overflow: hidden;
+  padding: 10px;
 }
 @keyframes logo-spin {
   from {
@@ -25,7 +29,7 @@
     grid-template-columns: minmax(100px, 250px) auto;
     grid-template-rows: 100vh;
   }
-  .main {
+  /* .main {
     padding: 20px 10px;
-  }
+  } */
 }

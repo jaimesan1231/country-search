@@ -1,0 +1,18 @@
+.grid__buttons {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  gap: 50px;
+}
+.grid__button {
+  background-color: transparent;
+  border: none;
+  width: 20px;
+  cursor: pointer;
+}
+.grid__arrow {
+  width: 100%;
+}
+.grid__right-arrow {
+  transform: rotate(180deg);
+}

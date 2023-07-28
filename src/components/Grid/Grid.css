@@ -2,29 +2,14 @@
   display: grid;
   width: 100%;
   grid-template-columns: repeat(1, minmax(300px, 80%));
-  grid-template-rows: repeat(3, 250px);
+  grid-template-rows: repeat(3, 1fr);
   place-items: center;
   gap: 10px;
   justify-content: center;
+  overflow: hidden;
+  height: calc(100vh - 170px);
 }
-.grid__buttons {
-  display: flex;
-  width: 100%;
-  justify-content: center;
-  gap: 50px;
-}
-.grid__button {
-  background-color: transparent;
-  border: none;
-  width: 20px;
-  cursor: pointer;
-}
-.grid__arrow {
-  width: 100%;
-}
-.grid__right-arrow {
-  transform: rotate(180deg);
-}
+
 @media screen and (min-width: 480px) {
   .grid {
     grid-template-columns: repeat(2, minmax(100px, 1fr));
