@@ -3,6 +3,7 @@ import "./CountryCard.css";
 
 const CountryCard = ({ country, handleCardClick }) => {
   const [card, setCard] = useState(null);
+
   useEffect(() => {
     const getCardData = async () => {
       try {
@@ -43,7 +44,7 @@ const CountryCard = ({ country, handleCardClick }) => {
         />
         <div className="card__info">
           <img
-            src={`/assets/flags/${card.code.toLowerCase()}.webp`}
+            src={`/src/assets/flags/${card.code.toLowerCase()}.webp`}
             alt={`${card.name} flag`}
             className="card__flag"
           />
