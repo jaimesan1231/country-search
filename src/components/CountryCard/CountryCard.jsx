@@ -43,7 +43,7 @@ const CountryCard = ({ country, handleCardClick }) => {
         />
         <div className="card__info">
           <img
-            src={`/src/assets/flags/${card.code.toLowerCase()}.webp`}
+            src={`/assets/flags/${card.code.toLowerCase()}.webp`}
             alt={`${card.name} flag`}
             className="card__flag"
           />

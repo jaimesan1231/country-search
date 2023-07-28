@@ -25,7 +25,7 @@ const CountryDetail = ({ card, handleClose }) => {
 
       <div className="detail__grid">
         <img
-          src={`/src/assets/flags/${code.toLowerCase()}.webp`}
+          src={`/assets/flags/${code.toLowerCase()}.webp`}
           alt={`${name} flag`}
           className="detail__flag"
         />
