@@ -18,8 +18,8 @@ Este proyecto es una página web que funciona como un buscador de países. Fue c
 
 ## Imagenes del proyecto
 
-![Ejemplo de chat](/src/assets/images/screen1.jfif)
-![Cambio de color de chat](/src/assets/images/screen2.jfif)
+![Pagina de inicio](/src/assets/home.jpg)
+![Detalle de pais](/src/assets/detail.jpg)
 
 ## Instalación y Ejecución
 
