@@ -13,8 +13,7 @@ const CountryCard = ({ country, handleCardClick }) => {
           }&image_type=photo&per_page=3`
         );
         const dataImage = await resImage.json();
-        const image =
-          dataImage.hits[0]?.webformatURL || "/src/assets/not-image.webp";
+        const image = dataImage.hits[0]?.webformatURL || "/not-image.webp";
         const resPoppulation = await fetch(
           `https://restcountries.com/v3.1/alpha?codes=${country.code}`
         );
@@ -44,7 +43,7 @@ const CountryCard = ({ country, handleCardClick }) => {
         />
         <div className="card__info">
           <img
-            src={`/src/assets/flags/${card.code.toLowerCase()}.webp`}
+            src={`/flags/${card.code.toLowerCase()}.webp`}
             alt={`${card.name} flag`}
             className="card__flag"
           />
