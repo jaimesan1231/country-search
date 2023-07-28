@@ -28,7 +28,7 @@ Clonar este repositorio. Necesitaras node.js y git instalado globalmente y segui
 1. Clonar este repositorio utilizando el siguiente comando en tu terminal:
 
 ```
-git clone https://github.com/tu-usuario/tu-repositorio.git
+git clone https://github.com/jaimesan1231/country-search.git
 ```
 
 2. Obtener una API Key de Pixabay:
@@ -47,7 +47,7 @@ VITE_API_KEY=Tu_API_Key_Aquí
 ```
 
 1. Instalar las dependencias con `npm install`
-2. Correr el proyecto con `npm start`
+2. Correr el proyecto con `npm run dev`
 3. Abrir http://localhost:5173 en el navegador para visualizar el proyecto
 
 ## Demo
