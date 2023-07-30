@@ -15,7 +15,7 @@ const ContinentFilter = ({ limit, page, handleNextPage, handlePrevPage }) => {
   const [currentCards, setCurrentCards] = useState(null);
   const [filterCountries, { data }] = useLazyQuery(FILTER_COUNTRIES_CONTINENT);
   useEffect(() => {
-    filterCountries({ variables: { continentCode: continent } });
+    filterCountries({ variables: { continentCodes: [continent] } });
   }, [continent]);
   useEffect(() => {
     if (!data) return;
