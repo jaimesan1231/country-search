@@ -1,34 +1,21 @@
 import { useEffect, useState } from "react";
+import { getCountryInfo } from "../../api";
 import "./CountryCard.css";
 
 const CountryCard = ({ country, handleCardClick }) => {
   const [card, setCard] = useState(null);
 
   useEffect(() => {
-    const getCardData = async () => {
-      try {
-        const resImage = await fetch(
-          `https://pixabay.com/api/?key=${import.meta.env.VITE_API_KEY}&q=${
-            country.name
-          }&image_type=photo&per_page=3`
-        );
-        const dataImage = await resImage.json();
-        const image = dataImage.hits[0]?.webformatURL || "/not-image.webp";
-        const resPoppulation = await fetch(
-          `https://restcountries.com/v3.1/alpha?codes=${country.code}`
-        );
-        const dataPopulation = await resPoppulation.json();
-        const population = dataPopulation[0].population;
+    const handleGetData = async () => {
+      await getCountryInfo(country, (image, population) => {
         setCard({
           ...country,
           image,
           population,
         });
-      } catch (error) {
-        console.log("Error", error);
-      }
+      });
     };
-    getCardData();
+    handleGetData();
   }, [country]);
   return (
     card && (

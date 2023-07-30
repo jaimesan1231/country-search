@@ -9,8 +9,8 @@ import CountryDetail from "../CountryDetail/CountryDetail";
 import withCardGrid from "../../HOC/withCardGrid";
 import CountryCard from "../CountryCard/CountryCard";
 import Preloader from "../Preloader/Preloader";
-import Grid from "../Grid/Grid";
 import GridController from "../GridController/GridController";
+import Grid from "../Grid/Grid";
 import "./SearchResults.css";
 
 const SearchResults = ({
@@ -37,11 +37,9 @@ const SearchResults = ({
   }, [page, limit, cards]);
 
   useEffect(() => {
-    console.log(continents);
     const searchCountries = async () => {
       setIsLoading(true);
       try {
-        console.log(searchTerm);
         if (searchTerm === "") {
           const { data } = await filterCountriesByContinent({
             variables: { continentCodes: continents },

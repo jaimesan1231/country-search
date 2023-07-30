@@ -1,40 +1,29 @@
 import { useEffect, useState } from "react";
 import "./FilterItem.css";
+import { getContinentImage } from "../../api";
 
-const FitlerItem = ({ continent, handleFilter }) => {
+const FitlerItem = ({ continent, handleFilter, selected }) => {
   const [urlImage, setUrlImage] = useState();
-  const [selected, setSelected] = useState(true);
   useEffect(() => {
-    const getImage = async () => {
-      try {
-        const res = await fetch(
-          `https://pixabay.com/api/?key=${import.meta.env.VITE_API_KEY}&q=${
-            continent.name
-          }&image_type=photo&per_page=3`
-        );
-        const data = await res.json();
-        setUrlImage(data.hits[1].webformatURL);
-      } catch (error) {
-        console.log("Error", error);
-      }
+    const handleGetImage = async () => {
+      await getContinentImage(continent.name, (image) => {
+        setUrlImage(image);
+      });
     };
-    getImage();
+    handleGetImage();
   }, []);
-  useEffect(() => {
-    console.log("primera vez");
-    if (selected) {
+
+  const handleSelected = () => {
+    if (!selected) {
       handleFilter(continent.code, "add");
     } else {
       handleFilter(continent.code, "remove");
     }
-    return () => {
-      handleFilter(continent.code, "remove");
-    };
-  }, [selected]);
+  };
   return (
     <li className="filter-item">
       <img
-        onClick={() => setSelected(!selected)}
+        onClick={handleSelected}
         src={urlImage}
         alt=""
         className={`filter-item__image ${selected && "filter-item_selected"}`}

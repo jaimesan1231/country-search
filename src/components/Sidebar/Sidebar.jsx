@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import menuIcon from "../../assets/menu.svg";
 import closeIcon from "../../assets/close.svg";
 import "./Sidebar.css";

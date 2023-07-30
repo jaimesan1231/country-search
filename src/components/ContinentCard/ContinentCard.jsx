@@ -1,25 +1,18 @@
 import { useEffect, useState } from "react";
 import "./ContinentCard.css";
+import { getContinentImage } from "../../api";
 
 const ContinentCard = ({ card, handleClick }) => {
   const [urlImage, setUrlImage] = useState("");
   const { name, code } = card;
 
   useEffect(() => {
-    const getImage = async () => {
-      try {
-        const res = await fetch(
-          `https://pixabay.com/api/?key=${
-            import.meta.env.VITE_API_KEY
-          }&q=${name}&image_type=photo&per_page=3`
-        );
-        const data = await res.json();
-        setUrlImage(data.hits[1].webformatURL);
-      } catch (error) {
-        console.log("Error", error);
-      }
+    const handleGetImage = async () => {
+      await getContinentImage(name, (image) => {
+        setUrlImage(image);
+      });
     };
-    getImage();
+    handleGetImage();
   }, [card]);
   return (
     <div className="continent-card" onClick={() => handleClick(code)}>

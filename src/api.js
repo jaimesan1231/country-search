@@ -90,3 +90,36 @@ export const SEARCH_COUNTRIES_CONTINENT = gql`
     }
   }
 `;
+
+export const getCountryInfo = async (country, onSuccess) => {
+  try {
+    const resImage = await fetch(
+      `https://pixabay.com/api/?key=${import.meta.env.VITE_API_KEY}&q=${
+        country.name
+      }&image_type=photo&per_page=3`
+    );
+    const dataImage = await resImage.json();
+    const image = dataImage.hits[0]?.webformatURL || "/not-image.webp";
+    const resPoppulation = await fetch(
+      `https://restcountries.com/v3.1/alpha?codes=${country.code}`
+    );
+    const dataPopulation = await resPoppulation.json();
+    const population = dataPopulation[0].population;
+    onSuccess(image, population);
+  } catch (error) {
+    console.log("Error", error);
+  }
+};
+export const getContinentImage = async (continent, onSuccess) => {
+  try {
+    const res = await fetch(
+      `https://pixabay.com/api/?key=${
+        import.meta.env.VITE_API_KEY
+      }&q=${continent}&image_type=photo&per_page=3`
+    );
+    const data = await res.json();
+    onSuccess(data.hits[1].webformatURL);
+  } catch (error) {
+    console.log("Error", error);
+  }
+};
