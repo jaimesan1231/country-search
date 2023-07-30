@@ -1,5 +1,5 @@
-import "./GridController.css";
 import leftArrow from "../../assets/left-arrow.svg";
+import "./GridController.css";
 
 const GridController = ({
   page,

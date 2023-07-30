@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import "./FilterItem.css";
 import { getContinentImage } from "../../api";
+import "./FilterItem.css";
 
 const FitlerItem = ({ continent, handleFilter, selected }) => {
   const [urlImage, setUrlImage] = useState();

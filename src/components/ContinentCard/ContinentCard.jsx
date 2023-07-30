@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import "./ContinentCard.css";
 import { getContinentImage } from "../../api";
+import "./ContinentCard.css";
 
 const ContinentCard = ({ card, handleClick }) => {
   const [urlImage, setUrlImage] = useState("");
