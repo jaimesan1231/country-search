@@ -48,9 +48,31 @@ export const SEARCH_COUNTRIES = gql`
     }
   }
 `;
-export const FILTER_COUNTRIES = gql`
-  query filterCountries($continentCode: String!) {
-    countries(filter: { continent: { eq: $continentCode } }) {
+export const FILTER_COUNTRIES_CONTINENT = gql`
+  query filterCountries($continentCodes: [String!]!) {
+    countries(filter: { continent: { in: $continentCodes } }) {
+      subdivisions {
+        name
+        code
+      }
+      code
+      name
+      capital
+      continent {
+        name
+      }
+      currencies
+      languages {
+        name
+      }
+    }
+  }
+`;
+export const SEARCH_COUNTRIES_CONTINENT = gql`
+  query SearchCountries($searchCodes: [String!]!, $continentCodes: [String!]!) {
+    countries(
+      filter: { code: { in: $searchCodes }, continent: { in: $continentCodes } }
+    ) {
       subdivisions {
         name
         code

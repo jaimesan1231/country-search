@@ -16,7 +16,7 @@ const Sidebar = () => {
             className="sidebar__item"
             onClick={() => setIsOpen(false)}
           >
-            Inicio
+            Paises
           </NavLink>
           <NavLink
             to="/continents"
@@ -25,13 +25,6 @@ const Sidebar = () => {
           >
             Continentes
           </NavLink>
-          <Link
-            to="/"
-            className="sidebar__item"
-            onClick={() => setIsOpen(false)}
-          >
-            Paises
-          </Link>
         </ul>
         <button className="sidebar__close" onClick={() => setIsOpen(false)}>
           <img src={closeIcon} alt="close sidebar icon" />

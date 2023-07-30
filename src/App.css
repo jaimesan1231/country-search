@@ -13,6 +13,7 @@
   height: 100vh;
   overflow: hidden;
   padding: 10px;
+  position: relative;
 }
 @keyframes logo-spin {
   from {

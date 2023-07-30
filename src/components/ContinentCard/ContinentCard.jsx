@@ -14,7 +14,7 @@ const ContinentCard = ({ card, handleClick }) => {
           }&q=${name}&image_type=photo&per_page=3`
         );
         const data = await res.json();
-        setUrlImage(data.hits[0].webformatURL);
+        setUrlImage(data.hits[1].webformatURL);
       } catch (error) {
         console.log("Error", error);
       }

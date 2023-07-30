@@ -29,9 +29,6 @@ const CountryCard = ({ country, handleCardClick }) => {
       }
     };
     getCardData();
-    return () => {
-      setCard(null);
-    };
   }, [country]);
   return (
     card && (

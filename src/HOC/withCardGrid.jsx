@@ -36,6 +36,7 @@ const withCardGrid = (WrappedComponent) => {
         handleNextPage={handleNextPage}
         handlePrevPage={handlePrevPage}
         {...props}
+        setPage={setPage}
       />
     );
   };

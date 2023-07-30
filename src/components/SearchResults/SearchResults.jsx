@@ -1,7 +1,10 @@
-import { useSearchParams } from "react-router-dom";
+import { useLocation, useSearchParams } from "react-router-dom";
 import { useLazyQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
-import { SEARCH_COUNTRIES } from "../../api";
+import {
+  FILTER_COUNTRIES_CONTINENT,
+  SEARCH_COUNTRIES_CONTINENT,
+} from "../../api";
 import CountryDetail from "../CountryDetail/CountryDetail";
 import withCardGrid from "../../HOC/withCardGrid";
 import CountryCard from "../CountryCard/CountryCard";
@@ -10,14 +13,23 @@ import Grid from "../Grid/Grid";
 import GridController from "../GridController/GridController";
 import "./SearchResults.css";
 
-const SearchResults = ({ limit, page, handleNextPage, handlePrevPage }) => {
+const SearchResults = ({
+  limit,
+  page,
+  handleNextPage,
+  handlePrevPage,
+  setPage,
+}) => {
   const [cardOpened, setCardOpened] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [currentCards, setCurrentCards] = useState(null);
   const [cards, setCards] = useState(null);
-  const [searchCountriesByCodes] = useLazyQuery(SEARCH_COUNTRIES);
+  const [filterCountriesByContinent] = useLazyQuery(FILTER_COUNTRIES_CONTINENT);
+  const [searchContriesByContinent] = useLazyQuery(SEARCH_COUNTRIES_CONTINENT);
   const [searchParams] = useSearchParams();
   const searchTerm = searchParams.get("search");
+  const continents = searchParams.getAll("continent");
+  const location = useLocation();
 
   useEffect(() => {
     if (!cards) return;
@@ -25,29 +37,40 @@ const SearchResults = ({ limit, page, handleNextPage, handlePrevPage }) => {
   }, [page, limit, cards]);
 
   useEffect(() => {
+    console.log(continents);
     const searchCountries = async () => {
       setIsLoading(true);
       try {
-        const res = await fetch(
-          `https://restcountries.com/v3.1/name/${searchTerm}`
-        );
-        const resultsData = await res.json();
-        const codes =
-          resultsData.status === 404
-            ? []
-            : resultsData.map((country) => country.cca2);
-        const { data } = await searchCountriesByCodes({
-          variables: { searchCodes: codes },
-        });
-        setIsLoading(false);
-        setCards(data.countries);
+        console.log(searchTerm);
+        if (searchTerm === "") {
+          const { data } = await filterCountriesByContinent({
+            variables: { continentCodes: continents },
+          });
+          setIsLoading(false);
+          setCards(data.countries);
+        } else {
+          const res = await fetch(
+            `https://restcountries.com/v3.1/name/${searchTerm}`
+          );
+          const resultsData = await res.json();
+          const codes =
+            resultsData.status === 404
+              ? []
+              : resultsData.map((country) => country.cca2);
+          const { data } = await searchContriesByContinent({
+            variables: { searchCodes: codes, continentCodes: continents },
+          });
+          setIsLoading(false);
+          setCards(data.countries);
+        }
+        setPage(1);
       } catch (error) {
         setIsLoading(false);
         console.log("Error", error);
       }
     };
     searchCountries();
-  }, [searchTerm]);
+  }, [location]);
 
   const handleOpenDetail = (card) => {
     setCardOpened(card);

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { FILTER_COUNTRIES } from "../../api";
+import { FILTER_COUNTRIES_CONTINENT } from "../../api";
 import { useLazyQuery } from "@apollo/client";
 import CountryDetail from "../CountryDetail/CountryDetail";
 import withCardGrid from "../../HOC/withCardGrid";
@@ -13,7 +13,7 @@ const ContinentFilter = ({ limit, page, handleNextPage, handlePrevPage }) => {
   const [cardOpened, setCardOpened] = useState(null);
   const { continent } = useParams();
   const [currentCards, setCurrentCards] = useState(null);
-  const [filterCountries, { data }] = useLazyQuery(FILTER_COUNTRIES);
+  const [filterCountries, { data }] = useLazyQuery(FILTER_COUNTRIES_CONTINENT);
   useEffect(() => {
     filterCountries({ variables: { continentCode: continent } });
   }, [continent]);
